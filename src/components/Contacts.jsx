@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styled from '../../public/css/Contacts.module.css'
 import ContactsList from './ContactsList'
 import inputs from '../constant/inputs'
@@ -13,7 +13,21 @@ const Contacts = () => {
         id: '', firstName: '', lastName: '', email: '', phone: ''
     })
 
-    const validation = () => {
+    const changeHandler = event => {
+        const name = event.target.name
+        const value = event.target.value.toLowerCase()
+        setContact(contact => ({ ...contact, [name]: value }))
+    }
+
+    const saveLoaclstorage = () => {
+        localStorage.setItem("contacts", JSON.stringify(contacts))
+    }
+
+    useEffect(() => {
+        localStorage.setItem("contacts", JSON.stringify(contacts))
+    })
+
+    const addHandler = () => {
         if (!contact.firstName || !contact.lastName || !contact.email || !contact.phone) {
             setMessage("Please enter valid data !")
             setTimeout(() => {
@@ -27,25 +41,12 @@ const Contacts = () => {
             }, 4000);
             return
         }
-    }
-
-    const changeHandler = event => {
-        const name = event.target.name
-        const value = event.target.value.toLowerCase()
-        setContact(contact => ({ ...contact, [name]: value }))
-    }
-
-    const saveLoaclstorage = () => {
-        localStorage.setItem("contacts", JSON.stringify(contacts))
-    }
-
-    const addHandler = () => {
-
-        validation()
 
         const min = 10000000000000;
         const max = 99999999999999;
         let randomId = (Math.floor(Math.random() * (max - min + 1)) + min)
+
+
         const newContact = { ...contact, id: randomId }
         setContacts(contacts => ([...contacts, newContact]))
         saveLoaclstorage()
@@ -71,12 +72,22 @@ const Contacts = () => {
     }
 
     const applyEditHandler = () => {
-        validation()
+        const newEditContact = contacts.find(x => x.id == editRecordId)
+        newEditContact.firstName = contact.firstName
+        newEditContact.lastName = contact.lastName
+        newEditContact.email = contact.email
+        newEditContact.phone = contact.phone
 
-        alert(editRecordId)
+
+        setContacts(contacts => ([...contacts]))
+        saveLoaclstorage()
         setChangeBtnAddStyle("block")
         setChangeBtnEditStyle("none")
 
+        setContact(({
+            id: '', firstName: '', lastName: '', email: '', phone: ''
+        })
+        )
     }
 
 
