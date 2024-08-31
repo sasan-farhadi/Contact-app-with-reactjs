@@ -1,12 +1,14 @@
-main {
+body{
     position: relative;
 }
 
+
 .alert {
-    position: absolute;
     display: none;
     z-index: 99;
-    left: 300px;
+    left: 35%;
+    top: 50%;
+    position: fixed;
     width: 550px;
     background-color: #ffffff;
     border: 1px solid #000;

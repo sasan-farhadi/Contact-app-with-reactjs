@@ -5,27 +5,15 @@ import inputs from '../constant/inputs'
 
 
 const Contacts = () => {
+    const [message, setMessage] = useState("")
+    const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
     const [contacts, setContacts] = useState(JSON.parse(localStorage.getItem("contacts")) || [])
     const [contact, setContact] = useState({
         id: '', firstName: '', lastName: '', email: '', phone: ''
     })
 
-    const changeHandler = event => {
-        const name = event.target.name
-        const value = event.target.value.toLowerCase()
-
-        setContact(contact => ({ ...contact, [name]: value }))
-    }
-
-    const [message, setMessage] = useState("")
-    const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-
-    const saveLoaclstorage = () => {
-        localStorage.setItem("contacts", JSON.stringify(contacts))
-    }
-
-    const addHandler = () => {
+    const validation = () => {
         if (!contact.firstName || !contact.lastName || !contact.email || !contact.phone) {
             setMessage("Please enter valid data !")
             setTimeout(() => {
@@ -39,7 +27,21 @@ const Contacts = () => {
             }, 4000);
             return
         }
-        setMessage("")
+    }
+
+    const changeHandler = event => {
+        const name = event.target.name
+        const value = event.target.value.toLowerCase()
+        setContact(contact => ({ ...contact, [name]: value }))
+    }
+
+    const saveLoaclstorage = () => {
+        localStorage.setItem("contacts", JSON.stringify(contacts))
+    }
+
+    const addHandler = () => {
+
+        validation()
 
         const min = 10000000000000;
         const max = 99999999999999;
@@ -47,15 +49,16 @@ const Contacts = () => {
         const newContact = { ...contact, id: randomId }
         setContacts(contacts => ([...contacts, newContact]))
         saveLoaclstorage()
-        // setContact({
-        //     firstName: '', lastName: '', email: '', phone: ''
-        // })
+        setShowModal("none")
     }
 
 
+    const [changeBtnAddStyle, setChangeBtnAddStyle] = useState("block")
+    const [changeBtnEditStyle, setChangeBtnEditStyle] = useState("none")
+    const [editRecordId, setEditRecordId] = useState()
     const editHandler = (id) => {
-        setAddButtonName("Edit Contact")
-        setButtonStyle(styled.editbutton)
+        setChangeBtnAddStyle("none")
+        setChangeBtnEditStyle("block")
         const contactEdit = contacts.find(x => x.id == id)
         setContact(
             {
@@ -64,10 +67,16 @@ const Contacts = () => {
                 email: contactEdit.email,
                 phone: contactEdit.phone
             })
+        setEditRecordId(contactEdit.id)
     }
 
     const applyEditHandler = () => {
-        
+        validation()
+
+        alert(editRecordId)
+        setChangeBtnAddStyle("block")
+        setChangeBtnEditStyle("none")
+
     }
 
 
@@ -131,8 +140,8 @@ const Contacts = () => {
                                 onChange={changeHandler}
                             />))
                         }
-                        <button className={styled.addbutton} onClick={addHandler} >Add Contact</button>
-                        <button className={styled.editbutton} onClick={applyEditHandler} >Edit Contact</button>
+                        <button className={styled.addbutton} style={{ display: changeBtnAddStyle }} onClick={addHandler} >Add Contact</button>
+                        <button className={styled.editbutton} style={{ display: changeBtnEditStyle }} onClick={applyEditHandler} >Edit Contact</button>
                     </div>
                 </section>
                 <div className={styled.message}>
