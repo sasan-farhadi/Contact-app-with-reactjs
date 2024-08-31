@@ -1,0 +1,257 @@
+main {
+    position: relative;
+}
+
+.alert {
+    position: absolute;
+    display: none;
+    z-index: 99;
+    left: 300px;
+    width: 550px;
+    background-color: #ffffff;
+    border: 1px solid #000;
+    height: 150px;
+    line-height: 150px;
+    text-align: right;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.alert p {
+    line-height: 0;
+    text-align: left;
+    font-weight: bold;
+}
+
+.alert button {
+    width: 90px;
+    height: 30px;
+    border: none;
+    font-weight: bold;
+    color: #fff;
+    border-radius: 10px;
+    opacity: .9;
+}
+
+.alert button:hover {
+    opacity: 1;
+}
+
+.ok {
+    background-color: #b33939;
+    margin-right: 5px;
+}
+
+.cancel {
+    background-color: #218c74;
+}
+
+
+.sectioncontact {
+    display: flex;
+    box-shadow: #ddd 2px 2px 20px;
+    border-radius: 10px;
+}
+
+.side {
+    width: 35%;
+    position: relative;
+}
+
+.side h2 {
+    position: absolute;
+    top: 95px;
+    color: #fff;
+    left: 45px;
+    opacity: .7;
+    transition: .3s all ease-in-out;
+}
+
+
+.side h4 {
+    position: absolute;
+    top: 150px;
+    color: #fff;
+    left: 125px;
+    opacity: .7;
+}
+
+.side:hover h2 {
+    opacity: 1;
+}
+
+.side a {
+    position: absolute;
+    bottom: 105px;
+    left: 60px;
+    opacity: .8;
+    font-weight: bold;
+    transition: .4s all ease-in-out;
+}
+
+
+.side a:hover {
+    cursor: pointer;
+    opacity: 1;
+    color: #f7b731;
+}
+
+.side img {
+    max-width: 100%;
+    height: 100%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.contact {
+    width: 65%;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+}
+
+
+.contact input {
+    width: 70%;
+    height: 50px;
+    padding: 10px;
+    margin: 10px;
+    border: none;
+    border-radius: 10px;
+    color: #000;
+    background-color: #ddd;
+    font-size: 1.2rem;
+    transition: .1s all ease-in-out;
+}
+
+.contact input:focus {
+    outline: 3px solid #f7b731;
+}
+
+.contact .addbutton {
+    width: 70%;
+    height: 50px;
+    padding: 10px;
+    font-weight: bold;
+    margin: 10px 0;
+    cursor: pointer;
+    background-color: #f7b731;
+    color: #000000;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: .2s all ease-in-out;
+    opacity: .8;
+}
+
+.contact .editbutton {
+    width: 70%;
+    height: 50px;
+    padding: 10px;
+    font-weight: bold;
+    margin: 10px 0;
+    cursor: pointer;
+    background-color: #218c74;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: .2s all ease-in-out;
+    opacity: .8;
+}
+
+.contact .addbutton:hover {
+    opacity: 1;
+}
+
+
+.contact .editbutton:hover {
+    opacity: 1;
+}
+
+
+.message {
+    width: 100%;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 15px;
+}
+
+.message p {
+    color: #fff;
+    border-radius: 10px;
+    background-image: linear-gradient(90deg, #ef4444, #fca5a5);
+    border: 2px solid #ef4444;
+}
+
+
+
+header {
+    height: 50px;
+    margin-bottom: 20px;
+}
+
+header input {
+    width: 30%;
+    height: 50px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    color: #000;
+    background-color: #ddd;
+    font-size: 1.2rem;
+    transition: .1s all ease-in-out;
+}
+
+header input:focus {
+    outline: 3px solid #f7b731;
+}
+
+.search {
+    width: 110px;
+    height: 50px;
+    padding: 10px;
+    font-weight: bold;
+    margin: 10px 0;
+    cursor: pointer;
+    background-color: #f7b731;
+    color: #000000;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: .2s all ease-in-out;
+    opacity: .8;
+    margin-left: 5px;
+}
+
+.search:hover {
+    opacity: 1;
+}
+
+
+.allbutton {
+    width: 110px;
+    height: 50px;
+    padding: 10px;
+    font-weight: bold;
+    margin: 10px 0;
+    cursor: pointer;
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: .2s all ease-in-out;
+    opacity: .8;
+    margin-left: 5px;
+}
+
+.allbutton:hover {
+    background-color: #f7b731;
+    opacity: .8;
+}
