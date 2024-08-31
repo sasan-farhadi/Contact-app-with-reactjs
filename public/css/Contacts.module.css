@@ -1,4 +1,4 @@
-body{
+body {
     position: relative;
 }
 
@@ -185,7 +185,7 @@ body{
 }
 
 .message p {
-    color: #fff;
+    color: #000000;
     border-radius: 10px;
     background-image: linear-gradient(90deg, #ef4444, #fca5a5);
     border: 2px solid #ef4444;
@@ -194,8 +194,10 @@ body{
 
 
 header {
+    display: flex;
     height: 50px;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 header input {
@@ -219,7 +221,6 @@ header input:focus {
     height: 50px;
     padding: 10px;
     font-weight: bold;
-    margin: 10px 0;
     cursor: pointer;
     background-color: #f7b731;
     color: #000000;
@@ -236,15 +237,15 @@ header input:focus {
 }
 
 
-.allbutton {
-    width: 110px;
+.deleteselect {
+    display: none;
+    width: auto;
     height: 50px;
     padding: 10px;
     font-weight: bold;
-    margin: 10px 0;
     cursor: pointer;
-    background-color: #ffffff;
-    color: #000000;
+    background-color: #ef4444;
+    color: #ffffff;
     border: none;
     border-radius: 10px;
     font-size: 1rem;
@@ -253,7 +254,6 @@ header input:focus {
     margin-left: 5px;
 }
 
-.allbutton:hover {
-    background-color: #f7b731;
-    opacity: .8;
+.deleteselect:hover {
+    opacity: 1;
 }

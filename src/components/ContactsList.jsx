@@ -2,7 +2,7 @@ import styled from '../../public/css/ContactList.module.css'
 import ContactItem from './ContactItem'
 
 
-const ContactsList = ({ contacts, deleteHandler, editHandler }) => {
+const ContactsList = ({ contacts, deleteHandler, editHandler, selectHandler }) => {
     return (
         <div>
             <main>
@@ -10,6 +10,7 @@ const ContactsList = ({ contacts, deleteHandler, editHandler }) => {
                     <table className={styled.table}>
                         <thead>
                             <tr>
+                                <th>Select</th>
                                 <th>FirstName</th>
                                 <th>LastName</th>
                                 <th>Email</th>
@@ -23,7 +24,7 @@ const ContactsList = ({ contacts, deleteHandler, editHandler }) => {
                                 {
                                     contacts.map(x => {
                                         return (
-                                            <ContactItem key={x.id} data={x} deleteHandler={deleteHandler} editHandler={editHandler} />
+                                            <ContactItem key={x.id} data={x} deleteHandler={deleteHandler} editHandler={editHandler} selectHandler={selectHandler} />
                                         )
                                     })
                                 }

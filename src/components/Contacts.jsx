@@ -7,6 +7,7 @@ import inputs from '../constant/inputs'
 const Contacts = () => {
     const [message, setMessage] = useState("")
     const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    const regexEn = /^[a-zA-Z@._0-9\s]*$/
 
     const [contacts, setContacts] = useState(JSON.parse(localStorage.getItem("contacts")) || [])
     const [contact, setContact] = useState({
@@ -16,7 +17,13 @@ const Contacts = () => {
     const changeHandler = event => {
         const name = event.target.name
         const value = event.target.value.toLowerCase()
-        setContact(contact => ({ ...contact, [name]: value }))
+        if (regexEn.test(value)) {
+            setContact(contact => ({ ...contact, [name]: value }))
+        } else {
+            setMessage("Please set your keyboard to English language")
+            return
+        }
+        setMessage("")
     }
 
     const saveLoaclstorage = () => {
@@ -58,6 +65,7 @@ const Contacts = () => {
     const [changeBtnEditStyle, setChangeBtnEditStyle] = useState("none")
     const [editRecordId, setEditRecordId] = useState()
     const editHandler = (id) => {
+
         setChangeBtnAddStyle("none")
         setChangeBtnEditStyle("block")
         const contactEdit = contacts.find(x => x.id == id)
@@ -72,6 +80,20 @@ const Contacts = () => {
     }
 
     const applyEditHandler = () => {
+        if (!contact.firstName || !contact.lastName || !contact.email || !contact.phone) {
+            setMessage("Please enter valid data !")
+            setTimeout(() => {
+                setMessage("")
+            }, 4000);
+            return
+        } else if (!contact.email.toLowerCase().match(regex)) {
+            setMessage(" Email is not valid!  -  For example : info@example.com")
+            setTimeout(() => {
+                setMessage("")
+            }, 4000);
+            return
+        }
+
         const newEditContact = contacts.find(x => x.id == editRecordId)
         newEditContact.firstName = contact.firstName
         newEditContact.lastName = contact.lastName
@@ -125,6 +147,27 @@ const Contacts = () => {
         setMessage("")
     }
 
+    const [check, setCheck] = useState([])
+    const selectHandler = (event) => {
+        const id = event.target.id
+        if (event.target.checked) {
+            setCheck(check => ([...check, id]))
+        } else {
+            let index = check.findIndex((x) => x === id);
+            console.log(index)
+            check.splice(index, 1);
+            setCheck([...check]);
+        }
+
+    }
+
+    const deleteSelectionRecordHandler = () => {
+        const newContacts = contacts.filter((contact) => contact.id !== Number(x))
+        setContacts(newContacts)
+        localStorage.setItem("contacts", JSON.stringify(newContacts))
+    }
+
+
     return (
         <div className='container'>
             <main>
@@ -161,12 +204,12 @@ const Contacts = () => {
                 <header>
                     <input type="text" name="search" placeholder="Search by name or email" onChange={event => setSearchInput(event.target.value.toLowerCase().trim())} />
                     <button className={styled.search} onClick={searchHandler} > Search </button>
-                    <button className={styled.allbutton} onClick={() => { window.location.reload(); }}>All</button>
+                    <button className={styled.deleteselect} style={check.length ? { display: "block" } : { display: "none" }} onClick={deleteSelectionRecordHandler}> delete selection record  </button>
                 </header>
-                <ContactsList contacts={contacts} deleteHandler={deleteHandler} editHandler={editHandler} />
+                <ContactsList contacts={contacts} deleteHandler={deleteHandler} editHandler={editHandler} selectHandler={selectHandler} />
             </main>
 
-        </div>
+        </div >
     )
 }
 export default Contacts
