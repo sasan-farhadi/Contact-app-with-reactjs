@@ -13,7 +13,7 @@ const Contacts = () => {
     const [contact, setContact] = useState({
         id: '', firstName: '', lastName: '', email: '', phone: ''
     })
-
+    //change Handler
     const changeHandler = event => {
         const name = event.target.name
         const value = event.target.value.toLowerCase()
@@ -26,14 +26,19 @@ const Contacts = () => {
         setMessage("")
     }
 
+
+    //save to localstorage function
     const saveLoaclstorage = () => {
         localStorage.setItem("contacts", JSON.stringify(contacts))
     }
 
+
+    //Use use effect to avoid storing empty array in local storage
     useEffect(() => {
         localStorage.setItem("contacts", JSON.stringify(contacts))
     })
 
+    //add record handler
     const addHandler = () => {
         if (!contact.firstName || !contact.lastName || !contact.email || !contact.phone) {
             setMessage("Please enter valid data !")
@@ -53,14 +58,22 @@ const Contacts = () => {
         const max = 99999999999999;
         let randomId = (Math.floor(Math.random() * (max - min + 1)) + min)
 
-
         const newContact = { ...contact, id: randomId }
         setContacts(contacts => ([...contacts, newContact]))
         saveLoaclstorage()
-        setShowModal("none")
+
+        setContact(({
+            id: '', firstName: '', lastName: '', email: '', phone: ''
+        })
+        )
+        // setShowModal("block")
+        // setMessageModal("do you want save form?")
     }
 
 
+
+
+    //record edit handler  and apply edit 
     const [changeBtnAddStyle, setChangeBtnAddStyle] = useState("block")
     const [changeBtnEditStyle, setChangeBtnEditStyle] = useState("none")
     const [editRecordId, setEditRecordId] = useState()
@@ -78,7 +91,6 @@ const Contacts = () => {
             })
         setEditRecordId(contactEdit.id)
     }
-
     const applyEditHandler = () => {
         if (!contact.firstName || !contact.lastName || !contact.email || !contact.phone) {
             setMessage("Please enter valid data !")
@@ -113,6 +125,8 @@ const Contacts = () => {
     }
 
 
+
+    //modal handler 
     const [showModal, setShowModal] = useState("none")
     const [messageModal, setMessageModal] = useState("")
     const [deleteId, setDeleteId] = useState()
@@ -122,14 +136,42 @@ const Contacts = () => {
         localStorage.setItem("contacts", JSON.stringify(newContacts))
         setShowModal("none")
     }
+
+
+
+
+
+    //delete selection record handler
+    const [check, setCheck] = useState([])
+    const selectHandler = (event) => {
+        const id = event.target.id
+        if (event.target.checked) {
+            setCheck(check => ([...check, id]))
+        } else {
+            let index = check.findIndex((x) => x === id);
+            console.log(index)
+            check.splice(index, 1);
+            setCheck([...check]);
+        }
+
+    }
+
     const deleteHandler = (id) => {
         setDeleteId(id)
         setShowModal("block")
         setMessageModal("Are you sure you want delete this record?")
     }
 
+    const deleteSelectionRecordHandler = () => {
+        const newContacts = contacts.filter((contact) => !check.includes(contact.id.toString()))
+        setContacts(newContacts)
+        localStorage.setItem("contacts", JSON.stringify(newContacts))
+        location.reload();
+    }
 
 
+
+    //search handler with name and email
     const [searchInput, setSearchInput] = useState()
     const searchHandler = () => {
         const byName = contacts.filter(x => x.firstName == searchInput)
@@ -145,27 +187,6 @@ const Contacts = () => {
             else setContacts(byEmail)
         }
         setMessage("")
-    }
-
-    const [check, setCheck] = useState([])
-    const selectHandler = (event) => {
-        const id = event.target.id
-        if (event.target.checked) {
-            setCheck(check => ([...check, id]))
-        } else {
-            let index = check.findIndex((x) => x === id);
-            console.log(index)
-            check.splice(index, 1);
-            setCheck([...check]);
-        }
-
-    }
-
-    const deleteSelectionRecordHandler = () => {
-        const newContacts = contacts.filter((contact) => !check.includes(contact.id.toString()))
-        setContacts(newContacts)
-        localStorage.setItem("contacts", JSON.stringify(newContacts))
-        location.reload();
     }
 
 
