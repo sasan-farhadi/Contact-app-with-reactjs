@@ -162,9 +162,10 @@ const Contacts = () => {
     }
 
     const deleteSelectionRecordHandler = () => {
-        const newContacts = contacts.filter((contact) => contact.id !== Number(x))
+        const newContacts = contacts.filter((contact) => !check.includes(contact.id.toString()))
         setContacts(newContacts)
         localStorage.setItem("contacts", JSON.stringify(newContacts))
+        location.reload();
     }
 
 

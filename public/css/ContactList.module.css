@@ -6,6 +6,8 @@
 table {
     border-collapse: collapse;
     background-color: #ddd;
+    width: 100%;
+    max-width: 100%;
 }
 
 thead {
@@ -69,3 +71,16 @@ tr:nth-child(even) {
     opacity: 1;
     cursor: pointer;
 }
+
+
+
+/* @media screen and (max-width:600px) {
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .sectionlist {
+        width: 600px;
+    }
+} */
